@@ -7,10 +7,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.use(bodyParser.json({ limit: '100mb' }));
   app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
-  // Apply Helmet for security headers
+  // Helmet for security
   app.use(
     helmet({
       frameguard: { action: 'deny' },
@@ -23,16 +24,18 @@ async function bootstrap() {
     }),
   );
 
-  // Enable CORS for your frontend
+  // Enable CORS
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',             
+      'https://your-frontend.vercel.app', 
+    ],
     credentials: true,
   });
 
-  // Apply validation globally
+  // Global validation
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  // Prefix all routes with /api
   app.setGlobalPrefix('api');
 
   const options = new DocumentBuilder()
@@ -46,6 +49,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3000);
+  const port = process.env.PORT || 5000;
+  await app.listen(port);
+  console.log(`Server running on port ${port}`);
 }
 bootstrap();

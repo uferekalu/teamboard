@@ -60,7 +60,7 @@ npm run start:dev
 ```
 
 Access API Docs at:  
-👉 **http://localhost:3000/docs** (Swagger)
+👉 **https://teamboard-backend-ps7r.onrender.com/docs** (Swagger)
 
 ---
 
