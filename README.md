@@ -97,7 +97,7 @@ cd frontend
 npm run dev
 ```
 
-Access the app at **http://localhost:5173**.
+Access the app at **https://teamboard-frontend.vercel.app/**.
 
 ---
 
