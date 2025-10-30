@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProjectPage from "./pages/ProjectPage";
+import MainLayout from "./layouts/MainLayout";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const { token } = useAuth();
@@ -17,24 +18,22 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+
+          {/* Protected routes with shared layout */}
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <DashboardPage />
+                <MainLayout />
               </ProtectedRoute>
             }
-          />
-          <Route
-            path="/projects/:id"
-            element={
-              <ProtectedRoute>
-                <ProjectPage />
-              </ProtectedRoute>
-            }
-          />
+          >
+            <Route index element={<DashboardPage />} />
+            <Route path="projects/:id" element={<ProjectPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

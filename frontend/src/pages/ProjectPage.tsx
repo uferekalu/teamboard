@@ -5,8 +5,6 @@ import api from "../api/axios";
 import TaskForm from "../components/TaskForm";
 import TaskCard from "../components/TaskCard";
 import { motion } from "framer-motion";
-import Header from "../components/ui/Header";
-import Sidebar from "../components/ui/Sidebar";
 import EditTaskModal from "../components/EditTaskModal";
 
 export default function ProjectPage() {
@@ -32,10 +30,8 @@ export default function ProjectPage() {
     });
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            <Header />
+        <div>
             <div className="max-w-6xl mx-auto flex gap-6 p-6">
-                <Sidebar />
                 <main className="flex-1">
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-xl font-semibold">

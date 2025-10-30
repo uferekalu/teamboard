@@ -1,19 +1,72 @@
-import { Link } from "react-router-dom";
+// components/ProjectCard.tsx
+import { motion } from "framer-motion";
+import { Pencil, Trash2 } from "lucide-react";
 
-export default function ProjectCard({ project, onDelete, onEdit }: any) {
-    return (
-        <div className="bg-white p-4 rounded-lg shadow flex flex-col justify-between">
-            <div>
-                <h3 className="font-semibold text-lg">{project.name}</h3>
-                <p className="text-sm text-slate-600 mt-2 truncate">{project.description}</p>
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-                <Link to={`/projects/${project._id}`} className="text-indigo-600">Open</Link>
-                <div className="flex gap-2">
-                    <button onClick={onEdit} className="text-sm text-indigo-600">Edit</button>
-                    <button onClick={onDelete} className="text-sm text-red-500">Delete</button>
-                </div>
-            </div>
+interface ProjectCardProps {
+  project: {
+    _id: string;
+    name: string;
+    description?: string;
+    createdAt?: string;
+  };
+  onEdit: () => void;
+  onDelete: () => void;
+  onClick?: () => void;
+}
+
+export default function ProjectCard({
+  project,
+  onEdit,
+  onDelete,
+  onClick,
+}: ProjectCardProps) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col justify-between group"
+    >
+      <div className="cursor-pointer" onClick={onClick}>
+        <h3 className="text-lg font-semibold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-1">
+          {project.name}
+        </h3>
+        {project.description ? (
+          <p className="text-slate-600 text-sm mt-1 line-clamp-2">{project.description}</p>
+        ) : (
+          <p className="text-slate-400 italic text-sm mt-1">No description provided</p>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between mt-4">
+        <p className="text-xs text-slate-400">
+          {project.createdAt ? new Date(project.createdAt).toLocaleDateString() : ""}
+        </p>
+
+        <div className="flex gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit();
+            }}
+            className="p-1.5 rounded-lg hover:bg-blue-50 text-blue-600 transition cursor-pointer"
+            title="Edit"
+          >
+            <Pencil size={18} />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(); // Only triggers setDeleteProjectId
+            }}
+            className="p-1.5 rounded-lg hover:bg-red-50 text-red-500 transition cursor-pointer"
+            title="Delete"
+          >
+            <Trash2 size={18} />
+          </button>
         </div>
-    );
+      </div>
+    </motion.div>
+  );
 }
