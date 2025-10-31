@@ -1,4 +1,3 @@
-// pages/DashboardPage.tsx
 import { useState, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axios";
@@ -32,7 +31,6 @@ export default function DashboardPage() {
   const [taskSort, setTaskSort] = useState<"asc" | "desc">("asc");
   const [taskPage, setTaskPage] = useState(1);
 
-  // Track which item is pending deletion
   const [deleteProjectId, setDeleteProjectId] = useState<string | null>(null);
   const [deleteTaskId, setDeleteTaskId] = useState<string | null>(null);
 
@@ -47,7 +45,7 @@ export default function DashboardPage() {
       qc.invalidateQueries({ queryKey: ["projects"] });
       toast.success("Project deleted");
     },
-    onSettled: () => setDeleteProjectId(null), // Always reset
+    onSettled: () => setDeleteProjectId(null),
   });
 
   const { data: tasks, isLoading: tasksLoading } = useQuery({
@@ -162,7 +160,7 @@ export default function DashboardPage() {
                     key={p._id}
                     project={p}
                     onEdit={() => setEditingProject(p)}
-                    onDelete={() => setDeleteProjectId(p._id)} // Only set ID
+                    onDelete={() => setDeleteProjectId(p._id)}
                     onClick={() => {
                       setCurrentProject(p);
                       setTaskPage(1);

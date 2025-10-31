@@ -1,4 +1,3 @@
-// components/ProjectCard.tsx
 import { motion } from "framer-motion";
 import { Pencil, Trash2 } from "lucide-react";
 
@@ -58,7 +57,7 @@ export default function ProjectCard({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onDelete(); // Only triggers setDeleteProjectId
+              onDelete();
             }}
             className="p-1.5 rounded-lg hover:bg-red-50 text-red-500 transition cursor-pointer"
             title="Delete"

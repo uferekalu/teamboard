@@ -54,7 +54,7 @@ export default function TaskCard({ task, onDelete, onEdit, onClick }: TaskCardPr
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onDelete(); // Only sets deleteTaskId
+            onDelete();
           }}
           className="p-1.5 rounded-md hover:bg-red-50 text-red-600 transition"
           title="Delete"

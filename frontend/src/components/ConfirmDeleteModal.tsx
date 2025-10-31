@@ -1,4 +1,3 @@
-// components/ConfirmDeleteModal.tsx
 import { motion } from "framer-motion";
 
 interface ConfirmDeleteModalProps {
